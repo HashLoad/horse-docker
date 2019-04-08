@@ -1,0 +1,18 @@
+language: bash
+services: docker
+
+env:
+  - VERSION=1.0.0
+  - VERSION=latest
+
+install:
+  - docker login -u $USER_DOCKER_HUB -p $PASSWORD_DOCKER_HUB
+
+before_script:
+  - IMAGE="hashload/horse:$VERSION"
+
+script:
+  - docker build -t $IMAGE .
+    
+after_script:
+  - docker push $IMAGE
